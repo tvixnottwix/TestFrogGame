@@ -9,17 +9,34 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     float startTime = 0f; // Variable to store the start time of the input
     [SerializeField]  private float speed;
+    [SerializeField] public Collider2D Ground;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
     }
 
+    // Ground Check
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider == Ground) { 
+            Debug.Log("on ground"); 
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider == Ground) {
+            Debug.Log("off ground"); 
+            isGrounded = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * speed,body.linearVelocity.y);
-
+        
         if(Input.GetKey(KeyCode.Space) & isJumping == false){
             // we want to store the amount of time they hold the space bar and apply the force when it is released
             isJumping = true;
@@ -33,21 +50,7 @@ public class PlayerMovement : MonoBehaviour
             if ((Time.time - startTime) < .2) { Debug.Log("Small Jump"); jumpForce = 5; } 
             if (((Time.time - startTime) > .2) & (Time.time - startTime) < .5) { Debug.Log("Medium Jump"); jumpForce = 7; }
             if ((Time.time - startTime) > .5) { Debug.Log("Large Jump"); jumpForce = 10; }
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
-        }
-        
-        
-        //             
-        // Ground Check
-        void OnCollisionEnter(Collision col) {
-            if (col.gameObject.name == "Ground") {
-                isGrounded = true;
-            }
-        }
-        void OnCollisionExit(Collision col) {
-            if (col.gameObject.name == "Ground") {
-                isGrounded = false;
-            }
+            if (isGrounded) { body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce); }
         }
 
     }

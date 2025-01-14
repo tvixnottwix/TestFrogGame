@@ -518,7 +518,7 @@ MonoBehaviour:
   jumpForce: 10
   isJumping: 0
   speed: 10
-  Ground: {fileID: 1630574052}
+  Ground: {fileID: 1885027069}
 --- !u!1 &1558342219
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 1630574053}
   - component: {fileID: 1630574052}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: TempGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -777,7 +777,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.13499999, y: 0.13499999, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
